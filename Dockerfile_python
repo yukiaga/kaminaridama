@@ -1,0 +1,17 @@
+FROM python:3
+
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
+
+RUN python -m pip install numpy
+RUN python -m pip install glob3
+RUN python -m pip install netCDF4
+RUN python -m pip install csv23
+RUN python -m pip install picklable-itertools
+RUN python -m pip install pytz
+RUN python -m pip install datetime2
+
+RUN apt-get update
+RUN apt-get install -y vim
+RUN apt-get install -y cron
+RUN apt-get install -y rsyslog

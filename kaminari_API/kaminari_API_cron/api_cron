@@ -1,0 +1,8 @@
+PATH=/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/app/kaminari_API/kaminari_API_rails
+BUNDLE_BIN=/usr/local/bundle/bin
+RAILS_ENV=development
+BUNDLE_PATH=/usr/local/bundle
+RUBYLIB=/usr/local/lib/ruby/gems/2.3.0/gems/bundler-1.13.6/lib
+
+*/2 * * * * root /app/kaminari_API/kaminari_API_rails/lib/tasks/dl_and_save_lightning.sh

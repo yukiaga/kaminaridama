@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  python:
+    build:
+      context: ./
+      dockerfile: Dockerfile_python
+    tty: true
+    container_name: kaminari_python
+    volumes:
+      - ./kaminari_python/task:/app/kaminari_python/task:rw
+      - ./kaminari_API/kaminari_API_rails/app/assets/csv:/app/kaminari_python/csv:rw
+      - ./kaminari_API/kaminari_API_rails/tmp/storage/nc:/app/kaminari_python/nc:rw
+      - ./kaminari_python/cron/python_cron:/etc/cron.d/python_cron
+      - ./kaminari_python/sh/python.sh:/app/kaminari_python/sh/python.sh
+      - ./start_python.sh:/usr/local/bin/start_python.sh:rw
+    working_dir: /app/kaminari_python
+    command: bash /usr/local/bin/start_python.sh
+    environment:
+      EDITOR: vi
+
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile_API
+    tty: true
+    stdin_open: true
+    container_name: kaminari_API
+    environment:
+      RAILS_ENV: development
+    volumes:
+      - ./kaminari_API/kaminari_API_cron/api_cron:/etc/cron.d/api_cron
+      - ./kaminari_API/kaminari_API_rails:/app/kaminari_API/kaminari_API_rails:rw
+      - ./start_api.sh:/usr/local/bin/start_api.sh:ro
+    ports:
+      - 3000:3000
+    working_dir: /app/kaminari_API/kaminari_API_rails
+    command: bash /usr/local/bin/start_api.sh
+
+  db:
+    image: mariadb:latest
+    container_name: kaminari_db
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: kaminari_API_rails_development
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: password
+      # MYSQL_USER: kaminari
+      # MYSQL_PASSWORD: password
+
+
+
