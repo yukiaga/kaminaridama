@@ -3,7 +3,7 @@ sxsw2019
 
 # デプロイ
 1. scp -i 秘密鍵指定 -r ローカルのディレクトリ指定(絶対パス) ユーザー名@接続先サーバー:サーバー内ディレクトリ指定(絶対パス) => EC2インスタンス内ファイルcopy
-2. docker-compose -f docker-compose-stg.yml up
+2. docker-compose -f docker-compose.yml up
 
 # 注意点
 1. nginxエンドポイントで制限をかけている
